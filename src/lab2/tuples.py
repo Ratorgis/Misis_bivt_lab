@@ -13,9 +13,9 @@ def format_record(rec: tuple[str, str, float]) -> str:
     if type(rec) != type(tuple()):
         raise TypeError('rec must to be tuple')
     else:
-        print(rec)
         fio = list(rec[0].split())
-        return f'{fio[0][0].upper() + fio[0][1:]} {fio[1][0].upper()}.{fio[2][0].upper()}., гр. {tuple[1]}, GPA {round(rec[2], 2)}'
+        if len(fio) == 3:
+            return f'{fio[0][0].upper() + fio[0][1:]} {fio[1][0].upper()}.{fio[2][0].upper()}., гр. {tuple[1]}, GPA {round(rec[2], 2)}'
+        else:
+            return f'{fio[0][0].upper() + fio[0][1:]} {fio[1][0].upper()}., гр. {tuple[1]}, GPA {round(rec[2], 2)}'
 
-
-print(format_record(student_registration('Иванов Иван Иванович', 'BIVT-25', 4.6)))
