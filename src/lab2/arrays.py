@@ -5,10 +5,7 @@ def min_max(nums: list[float | int]) -> tuple[float | int, float | int]:
         return (min(nums), max(nums))
 
 def unique_sorted(nums: list[float | int]) -> list[float | int]:
-    if len(nums) == 0:
-        raise ValueError('nums list is empty')
-    else:
-        return list(set(nums))
+    return list(set(nums))
 
 def flatten(mat: list[list | tuple]) -> list:
     res = []
