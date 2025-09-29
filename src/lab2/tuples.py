@@ -1,16 +1,16 @@
 def student_registration(fio: str, group: str, gpa: float) -> tuple[str, str, float]:
-    if type(fio) != type(''):
+    if type(fio) is not str:
         raise TypeError('Fio must to be str')
     elif len(fio) == 1:
         raise ValueError('Too short fio')
-    if type(group) != type(''):
+    if type(group) is not str:
         raise TypeError('Group must to be str')
-    if type(gpa) != type(1.0):
+    if type(gpa) is not float:
         raise TypeError('GPA must to be float')
     return tuple([fio, group, gpa])
 
 def format_record(rec: tuple[str, str, float]) -> str:
-    if type(rec) != type(tuple()):
+    if type(rec) is not tuple:
         raise TypeError('rec must to be tuple')
     else:
         fio = list(rec[0].split())
