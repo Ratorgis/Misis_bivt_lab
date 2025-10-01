@@ -5,7 +5,7 @@ def transpose(mat: list[list[float | int]]) -> list[list]:
         return []
     else:
         row, colum = len(mat), len(mat[0])
-        res = [[0] * row for _ in range(colum)]
+        res = [[0] * row for i in range(colum)]
         for i in range(row):
             for j in range(colum):
                 res[j][i] = mat[i][j]
