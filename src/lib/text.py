@@ -9,7 +9,6 @@ def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     text = ' '.join(text.split())
     return text
 
-
 def tokenize(text: str) -> list[str]:
     reg = r'(\w+(?:-\w+)*)'
     return re.findall(reg, text)
@@ -22,6 +21,5 @@ def count_freq(tokens: list[str]) -> dict[str, int]:
     return d
 
 def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
-    dic = sorted(list(freq.items()))
-    return dic[:n]
+    return sorted(freq.items(), key = lambda x: (-x[1], x[0]))[:n]
 
