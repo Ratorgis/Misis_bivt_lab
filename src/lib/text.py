@@ -13,7 +13,6 @@ def file_check(path: Path) -> None:
         if path not in check:
             raise  ValueError
 
-
 def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     if casefold:
         text = text.casefold()
