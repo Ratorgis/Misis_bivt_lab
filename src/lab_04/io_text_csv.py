@@ -13,7 +13,7 @@ def write_csv(rows: list[tuple | list], path: str | Path,
             header: tuple[str, ...] | None = None, *, file_name: str = None) -> None: 
 
     p = Path(path)
-
+    ensure_parent_dir(p)
     if not rows and header is None:
         raise ValueError('Нельзя создать пустой CVS без заголовка и данных')
 

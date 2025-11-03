@@ -27,11 +27,11 @@ def tokenize(text: str) -> list[str]:
     return re.findall(reg, text)
 
 def count_freq(tokens: list[str]) -> dict[str, int]:
-    d = {
+    result = {
         i: tokens.count(i)
         for i in set(tokens)
     }
-    return d
+    return result
 
 def top_n(freq: dict[str, int], n: int = 5) -> list[tuple[str, int]]:
     return sorted(freq.items(), key = lambda x: (-x[1], x[0]))[:n]
@@ -56,7 +56,7 @@ def json_reader(path_to_json: Path | str) -> list[dict]:
 
 def csv_reader(path_to_csv: Path | str) -> list[str]:
     path_to_csv = Path(path_to_csv)
-    if not(path_to_csv.exists()):
+    if not path_to_csv.exists():
         raise FileNotFoundError('Cant find your file')
     if path_to_csv.suffix.lower() != '.csv':
         raise ValueError('It is not .csv formate')
@@ -64,5 +64,15 @@ def csv_reader(path_to_csv: Path | str) -> list[str]:
         content = ' '.join(f.readlines())
     if content == '':
         raise ValueError('Your csv is empty')    
-    return tokenize(normalize(content, casefold = False))
+    result = [list(one.split(',')) for one in content.split('\n')]
+    return result
+
+def write_json(content: str, json_path: str | Path) -> None:
+    json_path = Path(json_path)
+    if not json_path.exists():
+        raise FileNotFoundError("Cant find your file")
+    if content is None:
+        raise ValueError('Input content is empty')
+    with json_path.open('w', encoding = 'utf-8') as f:
+        f.write(json.dumps(content))
 
