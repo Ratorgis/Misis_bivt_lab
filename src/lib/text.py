@@ -44,7 +44,7 @@ def read_text(path: str | Path, encoding: str = 'utf-8') -> str:
 
 def json_reader(path_to_json: Path | str) -> list[dict]:
     path_to_json = Path(path_to_json)
-    if not(path_to_json.exists()):
+    if not path_to_json.exists():
         raise FileNotFoundError('Cant find your file')
     if path_to_json.suffix.lower() != '.json':
         raise ValueError('It is not .json formate')
@@ -52,7 +52,12 @@ def json_reader(path_to_json: Path | str) -> list[dict]:
         content = ' '.join(f.readlines())
     if content == '':
         raise ValueError('Your json is empty')
-    return json.loads(content)
+    content = json.loads(content)
+    if not(isinstance(content, list)):
+        raise ValueError('Expected a list of dictionaries')
+    if not all(isinstance(one, dict) for one in content):
+        raise ValueError('List conteins non-dict items')
+    return content
 
 def csv_reader(path_to_csv: Path | str) -> list[str]:
     path_to_csv = Path(path_to_csv)
@@ -76,3 +81,6 @@ def write_json(content: str, json_path: str | Path) -> None:
     with json_path.open('w', encoding = 'utf-8') as f:
         f.write(json.dumps(content))
 
+if __name__ == "__main__":
+    path_in = Path('data/samples/people.json')
+    print(json_reader(path_in))

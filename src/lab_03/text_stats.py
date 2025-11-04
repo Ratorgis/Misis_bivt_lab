@@ -7,10 +7,9 @@ def stdin_info(text: str) -> list[int, int, dict[str: int]]:
     top_words = top_n(count_freq(tokens))
     return [words, uniq_words, top_words]
 
-def stdout_text_info(info: list[int, int, dict[str, int]]) -> None:
+def stdout_text_info(info: list[int, int, dict[str, int]], prettie: bool) -> str:
     words, uniq, top = info
-    ask = True if input('Do you wanna see pretie output ? (Yes or No): ') == 'Yes' else False
-    if ask:
+    if prettie:
         max_len_word = max(len(word[0]) for word in top)
         max_len_word = 5 if max_len_word < 5 else max_len_word
         print('слово' + ' ' * (2 * max_len_word - 5) + '| частота')
@@ -26,4 +25,5 @@ def stdout_text_info(info: list[int, int, dict[str, int]]) -> None:
 
 if __name__ == '__main__':
     info = stdin_info(input())
-    stdout_text_info(info)
+    ask = True if input('Do you wanna see pretie output ? (Yes or No): ') == 'Yes' else False
+    stdout_text_info(info, ask)

@@ -9,7 +9,7 @@ def json_to_csv(json_path: str | Path, csv_path: str | Path) -> None:
     content_read = list(json_reader(Path(json_path)))
     rows, headers = [], set()
     for one in content_read:
-        headers.update(one.keys())
+        headers = headers.union(headers, one.keys())
 
     for one in content_read:
         row = list(one.values())
@@ -32,12 +32,4 @@ def csv_to_json(csv_path: Path | str, json_path: Path | str) -> None:
         }
         result.append(row)
     write_json(result, json_path)
-
-
-if __name__ == "__main__":
-    path_in = 'data/samples/people.csv'
-    path_out = 'data/out/people_from_csv.json'
-    print(csv_reader(path_in))
-    # [{"name": Max, "age": 18, "city": Novosibirsk}]
-
 
