@@ -1,12 +1,12 @@
 from pathlib import Path
-import json, csv
 
 from lib.text import json_reader, csv_reader, write_json
 from lab_04.io_text_csv import write_csv
-from lib.text import read_text
 
 def json_to_csv(json_path: str | Path, csv_path: str | Path) -> None:
-    content_read = list(json_reader(Path(json_path)))
+    content_read = json_reader(Path(json_path))
+    if content_read is not []:
+        content_read = list(content_read)
     rows, headers = [], set()
     for one in content_read:
         headers = headers.union(headers, one.keys())
