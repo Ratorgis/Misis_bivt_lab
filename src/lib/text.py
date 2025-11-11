@@ -1,5 +1,5 @@
 from pathlib import Path
-import re, json
+import re, json, csv
 
 def file_check(path: Path) -> None:
     if path is not Path:
@@ -49,13 +49,12 @@ def json_reader(path_to_json: Path | str) -> list[dict]:
     if path_to_json.suffix.lower() != '.json':
         raise ValueError('It is not .json formate')
     with path_to_json.open(encoding = 'utf-8') as f:
-        content = ' '.join(f.readlines())
+        content = json.loads(f)
     if content == '':
         raise ValueError('Your json is empty')
-    content = json.loads(content)
-    if not(isinstance(content, list)):
+    if content is not list:
         raise ValueError('Expected a list of dictionaries')
-    if not all(isinstance(one, dict) for one in content):
+    if not all(one is not dict for one in content):
         raise ValueError('List conteins non-dict items')
     return content
 
@@ -66,13 +65,13 @@ def csv_reader(path_to_csv: Path | str) -> list[str]:
     if path_to_csv.suffix.lower() != '.csv':
         raise ValueError('It is not .csv formate')
     with path_to_csv.open(encoding = 'utf-8') as f:
-        content = ' '.join(f.readlines())
+        reader = csv.reader(f)
+        content = list(reader)
     if content == '':
         raise ValueError('Your csv is empty')    
-    result = [list(one.split(',')) for one in content.split('\n')]
-    return result
+    return content
 
-def write_json(content: str, json_path: str | Path) -> None:
+def write_json(content: list[dict], json_path: str | Path) -> None:
     json_path = Path(json_path)
     if not json_path.exists():
         raise FileNotFoundError("Cant find your file")
@@ -82,5 +81,6 @@ def write_json(content: str, json_path: str | Path) -> None:
         f.write(json.dumps(content))
 
 if __name__ == "__main__":
-    path_in = Path('data/samples/people.json')
+    path_in = 'data/samples/people.json'
+    path_out = 'data/out/people_from_json.csv'
     print(json_reader(path_in))
