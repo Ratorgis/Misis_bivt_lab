@@ -6,28 +6,32 @@ from lab_04.io_text_csv import write_csv
 
 def json_to_csv(json_path: str | Path, csv_path: str | Path) -> None:
     content_read = json_reader(Path(json_path))
-    if content_read is not []:
-        content_read = list(content_read)
-    rows, headers = [], set()
+    headers = []
     for one in content_read:
-        headers = headers.union(headers, one.keys())
-
+        for header in one.keys():
+            if header not in headers:
+                headers.append(header)
+    rows = []
     for one in content_read:
-        row = list(one.values())
-        while len(row) < len(headers):
-            row.append("")
+        row = [one.get(header, "") for header in headers]
         rows.append(row)
 
-    write_csv(rows, csv_path, headers)
+    write_csv(rows, csv_path, tuple(headers))
 
 
 def csv_to_json(csv_path: Path | str, json_path: Path | str) -> None:
     content = csv_reader(csv_path)
-    result = []
+    if len(content) < 2:
+        raise ValueError('CSV file must have a header and at least one row')
     keys = content[0]
+    result = []
     for one in content[1:]:
         while len(one) < len(keys):
             one.append("")
-        row = {keys[i]: one[i] for i in range(len(keys))}
+        row = {
+            keys[i]: one[i]
+            for i in range(len(keys))
+        }
         result.append(row)
     write_json(result, json_path)
+

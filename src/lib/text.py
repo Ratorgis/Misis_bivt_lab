@@ -1,7 +1,6 @@
 from pathlib import Path
 import re, json
 
-
 def file_check(path: Path) -> None:
     if path is not Path:
         raise TypeError("Your enter not the path to check file")
@@ -49,36 +48,35 @@ def read_text(path: str | Path, encoding: str = "utf-8") -> str:
 def json_reader(path_to_json: Path | str) -> list[dict]:
     path_to_json = Path(path_to_json)
     if not path_to_json.exists():
-        raise FileNotFoundError("Cant find your file")
-    if path_to_json.suffix.lower() != ".json":
-        raise ValueError("It is not .json formate")
-    with path_to_json.open(encoding="utf-8") as f:
-        content = " ".join(f.readlines())
-    if content == "":
-        raise ValueError("Your json is empty")
+        raise FileNotFoundError('Cant find your file')
+    if path_to_json.suffix.lower() != '.json':
+        raise ValueError('It is not .json formate')
+    with path_to_json.open(encoding = 'utf-8') as f:
+        content = ' '.join(f.readlines())
+    if content == '':
+        raise ValueError('Your json is empty')
     content = json.loads(content)
-    if not (isinstance(content, list)):
-        raise ValueError("Expected a list of dictionaries")
+    if not(isinstance(content, list)):
+        raise ValueError('Expected a list of dictionaries')
     if not all(isinstance(one, dict) for one in content):
-        raise ValueError("List conteins non-dict items")
+        raise ValueError('List conteins non-dict items')
     return content
 
 
 def csv_reader(path_to_csv: Path | str) -> list[str]:
     path_to_csv = Path(path_to_csv)
     if not path_to_csv.exists():
-        raise FileNotFoundError("Cant find your file")
-    if path_to_csv.suffix.lower() != ".csv":
-        raise ValueError("It is not .csv formate")
-    with path_to_csv.open(encoding="utf-8") as f:
-        content = " ".join(f.readlines())
-    if content == "":
-        raise ValueError("Your csv is empty")
-    result = [list(one.split(",")) for one in content.split("\n")]
+        raise FileNotFoundError('Cant find your file')
+    if path_to_csv.suffix.lower() != '.csv':
+        raise ValueError('It is not .csv formate')
+    with path_to_csv.open(encoding = 'utf-8') as f:
+        content = ' '.join(f.readlines())
+    if content == '':
+        raise ValueError('Your csv is empty')    
+    result = [list(one.split(',')) for one in content.split('\n')]
     return result
 
-
-def write_json(content: str, json_path: str | Path) -> None:
+def write_json(content: list[dict], json_path: str | Path) -> None:
     json_path = Path(json_path)
     if not json_path.exists():
         raise FileNotFoundError("Cant find your file")
@@ -88,6 +86,3 @@ def write_json(content: str, json_path: str | Path) -> None:
         f.write(json.dumps(content))
 
 
-if __name__ == "__main__":
-    path_in = Path("data/samples/people.json")
-    print(json_reader(path_in))
