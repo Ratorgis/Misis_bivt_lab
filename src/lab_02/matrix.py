@@ -1,6 +1,6 @@
 def transpose(mat: list[list[float | int]]) -> list[list]:
-    if not(all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
-        raise ValueError('Рваная матрица')
+    if not (all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
+        raise ValueError("Рваная матрица")
     elif len(mat) == 0:
         return []
     else:
@@ -11,9 +11,10 @@ def transpose(mat: list[list[float | int]]) -> list[list]:
                 res[j][i] = mat[i][j]
         return res
 
+
 def row_sums(mat: list[list[float | int]]) -> list[float]:
-    if not(all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
-        raise ValueError('Рваная матрица')
+    if not (all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
+        raise ValueError("Рваная матрица")
     else:
         row = len(mat)
         res = []
@@ -21,9 +22,10 @@ def row_sums(mat: list[list[float | int]]) -> list[float]:
             res.append(sum(mat[i]))
         return res
 
+
 def col_sums(mat: list[list[float | int]]) -> list[float]:
-    if not(all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
-        raise ValueError('Рваная матрица')
+    if not (all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
+        raise ValueError("Рваная матрица")
     else:
         colum = len(mat)
         row = len(mat[0])
@@ -31,4 +33,3 @@ def col_sums(mat: list[list[float | int]]) -> list[float]:
         for i in range(row):
             res.append(sum(mat[j][i] for j in range(colum)))
         return res
-

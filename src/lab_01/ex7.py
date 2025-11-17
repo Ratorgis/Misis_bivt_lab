@@ -14,5 +14,4 @@ for i in range(len(s)):
         if first:
             break
 
-print(s[first::seconde - first])
-
+print(s[first :: seconde - first])
