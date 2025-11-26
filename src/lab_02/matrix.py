@@ -1,6 +1,6 @@
 def transpose(mat: list[list[float | int]]) -> list[list]:
     if not (all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
-        raise ValueError("Рваная матрица")
+        raise ValueError("Torn matrix")
     elif len(mat) == 0:
         return []
     else:
@@ -14,7 +14,7 @@ def transpose(mat: list[list[float | int]]) -> list[list]:
 
 def row_sums(mat: list[list[float | int]]) -> list[float]:
     if not (all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
-        raise ValueError("Рваная матрица")
+        raise ValueError("Torn matrix")
     else:
         row = len(mat)
         res = []
@@ -25,7 +25,7 @@ def row_sums(mat: list[list[float | int]]) -> list[float]:
 
 def col_sums(mat: list[list[float | int]]) -> list[float]:
     if not (all(len(mat[i]) == len(mat[0]) for i in range(len(mat)))):
-        raise ValueError("Рваная матрица")
+        raise ValueError("Torn matrix")
     else:
         colum = len(mat)
         row = len(mat[0])
