@@ -71,10 +71,11 @@ def csv_reader(path_to_csv: Path | str) -> list[str]:
     if path_to_csv.suffix.lower() != ".csv":
         raise ValueError("It is not .csv formate")
     with path_to_csv.open(encoding="utf-8") as f:
-        content = " ".join(f.readlines())
+        content = "".join(f.readlines())
     if content == "":
         raise ValueError("Your csv is empty")
     result = [list(one.split(",")) for one in content.split("\n")]
+    result.remove([''])
     return result
 
 
@@ -89,4 +90,6 @@ def write_json(content: list[dict], json_path: str | Path) -> None:
 
 
 if __name__ == "__main__":
-    print(csv_reader("src/data/out/people_from_json.csv"))
+    ...
+
+

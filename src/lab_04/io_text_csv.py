@@ -46,3 +46,7 @@ def ensure_parent_dir(path: str | Path) -> None:
     parent = p.parent
     if not parent.exists():
         parent.mkdir(parents=True, exist_ok=True)
+
+
+if __name__ == "__main__":
+    write_csv([["max", "18"]], "tmp/output.csv", tuple(["name", "age"]))

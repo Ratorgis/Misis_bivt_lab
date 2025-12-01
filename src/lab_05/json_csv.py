@@ -34,5 +34,4 @@ def csv_to_json(csv_path: Path | str, json_path: Path | str) -> None:
 
 
 if __name__ == "__main__":
-    csv_to_json("src/data/samples/people.csv", "src/data/out/people_from_csv.json")
-    print(json_reader("src/data/out/people_from_csv.json"))
+    print(csv_reader("tmp/output.csv"))
