@@ -15,7 +15,6 @@ def json_to_csv(json_path: str | Path, csv_path: str | Path) -> None:
     for one in content_read:
         row = [one.get(header, "") for header in headers]
         rows.append(row)
-    print(headers, rows)
     write_csv(rows, csv_path, tuple(headers))
 
 

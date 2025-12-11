@@ -11,11 +11,10 @@ class Student:
 
     def __post_init__(self):
         try:
-            self.birthdate = datetime.strptime(self.birthdate, "%Y/%m/%d")
+            self.birthdate_obj = datetime.strptime(self.birthdate, "%Y/%m/%d")
         except ValueError:
-            raise ValueError("Invalid date of birth format")
-
-        if self.fio is not str:
+            raise ValueError("Invalid date of birth format. Use YYYY/MM/DD")
+        if not isinstance(self.fio, str):
             raise TypeError("Fio must be str format")
 
         if len(self.fio.split()) != 3:
@@ -37,7 +36,7 @@ class Student:
     def to_dict(self) -> dict:
         return {
             "fio": self.fio,
-            "birthdate": self.birthdate.strftime("%Y/%m/%d"),
+            "birthdate": self.birthdate,
             "group": self.group,
             "gpa": self.gpa,
         }
@@ -56,4 +55,4 @@ class Student:
         )
 
     def __str__(self):
-        return f"{self.fio}, {self.group}, {self.birthdate.strftime('%Y/%m/%d')}, GPA: {self.gpa}"
+        return f"{self.fio}, {self.group}, {self.birthdate}, GPA: {self.gpa}"

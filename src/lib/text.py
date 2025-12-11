@@ -75,7 +75,7 @@ def csv_reader(path_to_csv: Path | str) -> list[str]:
     if content == "":
         raise ValueError("Your csv is empty")
     result = [list(one.split(",")) for one in content.split("\n")]
-    result.remove([''])
+    result.remove([""])
     return result
 
 
@@ -91,5 +91,3 @@ def write_json(content: list[dict], json_path: str | Path) -> None:
 
 if __name__ == "__main__":
     ...
-
-
